@@ -1,0 +1,7 @@
+
+configuration {
+    modi: "drun,window";
+    font: "Hack 10";
+}
+
+@theme "~/.config/rofi/themes/crimson.rasi"

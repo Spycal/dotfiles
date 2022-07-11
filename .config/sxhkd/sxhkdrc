@@ -1,0 +1,77 @@
+# ~/.config/sxhkd/sxhkdrc
+
+##= APPLICATIONS =##
+
+# open terminal
+alt + Return
+	urxvt
+
+# open browser
+alt + b
+    firefox 
+
+# open file manager
+alt + p 
+    Thunar
+
+# open appfidder
+alt + r
+    rofi -show run 
+
+# make sxhkd reload its configuration files:
+alt + Escape
+	pkill -USR1 -x sxhkd
+
+# close application
+alt + w
+	bspwc node -c
+
+# quit/restart bspwm
+alt + shift + {q,r}
+	bspc {quit,wm -r}
+
+##= SPECIAL =##
+
+# control audio
+alt + {minus,equal}
+    amixer set Master 5%{-,+} unmute
+
+# mute audio
+alt + 0
+    amixer set Master {_,un}mute
+
+alt + Print
+    scrot
+
+##= FOCUS/SWAP =##
+
+# swap the current node
+alt + shift + s 
+    bspc node -f last.local
+
+# focus the next/previous desktop in current monitor
+alt + {1,2,3,4}
+	bspc desktop -f {1,2,3,4}
+
+# focus the node in given direction
+alt + {Left, Down, Up, Right}
+    bspc node -f {west,south,north,east}
+
+##= MOVE/RESIZE =##
+
+# expand a window by moving one of its side outward
+alt + shift + {Left, Down, Up, Right}
+    bspc node -z {left -20 0,bottom 0 20,top 0 -20,rigth 20 0}
+
+alt + ctrl + shift + {Left, Down, Up, Right}
+    bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
+
+##= STATE/FLAGS =##
+
+# set the window state
+alt + {t,f,g}
+    bspc node -t {tiled,floating,fullscreen}
+
+# set the node flags
+alt + {m,x,y,z}
+    bspc node -g {marked,locked,sticky,private}
