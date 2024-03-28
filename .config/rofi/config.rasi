@@ -1,0 +1,71 @@
+configuration {
+    modi: "drun";
+    display-drun: "Search:";
+}
+
+@theme "/dev/null"
+
+* {
+    overlay: #26233A;
+    muted: #6A6A8F;
+    love: #EB6F92;
+    pine: #31748F;
+    gold: #F6C177;
+    foam: #9CCFD8;
+    iris: #C4A7E7;
+    rose: #EBBCBA;
+
+    bg: #191724;
+    fg: #E0DEF4;
+
+    background-color: @bg;
+    text-color: @fg;
+    spacing: 0;
+    font: "Iosevka Mayukai Serif Medium 11";
+}
+
+window {
+    location: north;
+    archor: north;
+    width: 100%;
+    children: [ horibox ];
+    border: 2px;
+    border-color: @bg;
+}
+
+horibox {
+    orientation: horizontal;
+    children: [ prompt, entry, listview ];
+    padding: 4px 10px;
+}
+
+prompt {
+    padding: 3px 6px;
+    background-color: @rose;
+    text-color: @overlay;
+}
+
+entry {
+    expand: false;
+    padding: 3px 10px;
+    width: 12em;
+    placeholder: "type something...";
+    placeholder-color: @muted;
+    background-color: @overlay;
+}
+
+listview {
+    layout: horizontal;
+    lines: 5;
+    padding: 0px 10px;
+}
+
+element-text {
+    padding: 3px 10px;
+    highlight: None;
+}
+
+element-text selected {
+    text-color: @overlay;
+    background-color: @iris;
+}

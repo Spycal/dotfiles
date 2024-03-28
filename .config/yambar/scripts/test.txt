@@ -1,0 +1,2 @@
+desktop_focus 0x00400006 0x00400009
+desktop_focus 0x00400006 0x00400007

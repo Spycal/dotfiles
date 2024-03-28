@@ -1,0 +1,60 @@
+configuration {
+  modi: "run";
+  display-run: "Search: ";
+}
+
+@theme "/dev/null"
+
+* {
+  bg: #0F1419;
+  fg: #E6E1CF;
+  sel: #FFB454;
+  norm: #2D3640;
+
+  background-color: @bg;
+  text-color: @fg;
+  spacing: 0;
+  font: "hack 10";
+}
+
+window {
+  location: north;
+  archor: north;
+  width: 100%;
+  children: [ horibox ];
+}
+
+horibox {
+  orientation: horizontal;
+  children: [ prompt, entry, listview ];
+  padding: 4px 10px;
+}
+
+prompt {
+  padding: 3px 0px;
+  text-color: @sel;
+}
+
+entry {
+  expand: false;
+  padding: 3px 0px;
+  width: 14em;
+  placeholder: "type something...";
+  placeholder-color: @norm;
+}
+
+listview {
+  layout: horizontal;
+  lines: 100;
+  padding: 3px 0px;
+}
+
+element-text {
+  padding: 0px 8px;
+  highlight: @sel;
+}
+
+element-text selected {
+  text-color: @sel;
+  font: "hack 10";
+}

@@ -1,0 +1,97 @@
+# Window Manager 
+super + shift + q
+    bspc quit 
+
+super + shift + r
+    bspc wm -r
+
+super + q
+    bspc node -k
+
+super + shift + Escape 
+    pkill -USR1 sxhkd
+
+# Application
+super + Return
+    kitty
+
+super + r 
+    rofi -show drun
+
+super + p
+    nemo
+
+# Media
+XF86AudioRaiseVolume
+    amixer -q sset Master 5%+
+
+XF86AudioLowerVolume
+    amixer -q sset Master 5%-
+
+XF86AudioMute 
+    amixer -q sset Master toggle
+
+XF86AudioMicMute
+    amixer -q sset Capture toggle
+
+XF86MonBrightnessUp
+    brightnessctl set 5%+
+ 
+XF86MonBrightnessDown 
+    brightnessctl set 5%-
+
+super + control + Print
+    ~/.config/sxhkd/screenshot.sh region & dunstify "Screenshot taken!\nCheck ~/Pictures/Screenshot"
+
+super + Print
+    ~/.config/sxhkd/screenshot.sh fullscreen & dunstify "Screenshot taken!"
+
+
+# Node / Window
+
+## Swap node
+super + shift + Return
+    bspc node -s last.local
+
+## Focus node
+super + {h, j, k, l} 
+    bspc node -f {west, south, north, east}
+
+## Move node
+super + shift + {1-5}
+   bspc node -d '^{1-5}' --follow 
+
+# Resize node outward
+super + shift + {h, j, k, l}
+    bspc node -z {left -20 0, bottom 0 20, top 0 -20, right 20 0}
+
+# Resize node inward
+super + control + shift + {h, j, k, l}
+    bspc node -z {right -20 0, top 0 20, bottom 0 -20, left 20 0}
+
+# Desktop / Tags
+
+## Focus desktop
+super + {1-5}
+    bspc desktop -f {1-5}
+
+## Focus last desktop
+super + Tab
+    bspc desktop -f last
+
+# State & Flags
+
+## Change node state
+super + {t, f, g}
+    bspc node -t {tiled, floating, fullscreen}
+
+## Toggle node state
+super + space 
+    bspc node -t \~floating
+
+## Follow me, node
+super + y
+    bspc node -g sticky
+
+
+

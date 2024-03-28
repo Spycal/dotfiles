@@ -1,0 +1,27 @@
+
+main-font: &main-font Iosevka Mayukai Serif:style=medium:size=12
+material: &material Nerd Font Symbols:style=regular:size=14
+
+bg: &bg 191724ff
+fg: &fg e0def4ff
+
+bg-alt: &bg-alt 26233aff
+fg-alt: &fg-alt 6e6a86ff
+
+love: &love 6e6a86ff
+pine: &pine 31748fff               
+gold: &gold f6c177ff               
+foam: &foam 9ccfd8ff              
+iris: &iris c4a7e7ff               
+rose: &rose ebbcbaff              
+
+bar:
+  height: 28
+  location: top
+  background: *bg
+  fg: *fg
+  layer: bottom
+  font: *main-font
+  
+  border:
+    width: 6

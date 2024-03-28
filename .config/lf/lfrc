@@ -1,0 +1,6 @@
+
+set shell zsh
+set icons
+set previewer ~/.config/lf/scripts/preview
+set cleaner ~/.config/lf/scripts/clean
+

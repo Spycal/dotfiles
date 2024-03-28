@@ -1,0 +1,155 @@
+
+awesome: &awesome Font Awesome 6:style=Solid:size=14
+
+# rose-pine colors
+bg: &bg 191724ff
+fg: &fg e0def4ff
+
+overlay: &overlay 26233aff         # black
+muted: &muted 6e6a86ff             # grey
+love: &love eb6f92ff               # red
+pine: &pine 31748fff               # dark green
+gold: &gold f6c177ff               # yellow
+foam: &foam 9ccfd8ff               # light blue
+iris: &iris c4a7e7ff               # light purple
+rose: &rose ebbcbaff               # light pink
+
+bar:
+  height: 26
+  location: top
+  background: *bg
+  foreground: *fg
+  layer: bottom
+  font: Iosevka Mayukai Serif:style=Medium:pixelsize=14
+  spacing: 8
+  margin: 8
+  border:
+    width: 6
+
+  left: 
+    - river:
+        anchors:
+          - base: &river_base
+              margin: 10
+              deco: { background: { color: 26233aff } }
+              conditions:
+                id == 1: { string: { text: "1" }}
+                id == 2: { string: { text: "2" }}
+                id == 3: { string: { text: "3" }}
+                id == 4: { string: { text: "4" }}
+                id == 5: { string: { text: "5" }}
+
+        content: 
+          map:
+            on-click:
+              left: sh -c "riverctl set-focused-tags $((1 << ({id} - 1)))"
+
+            conditions: 
+              focused:
+                map:
+                  foreground: *overlay
+                  <<: *river_base
+                  deco: 
+                    stack:
+                      - background: { color: 31748fff } 
+              ~occupied: 
+                map: 
+                  <<: *river_base
+              occupied:
+                map:
+                  <<: *river_base
+    - script:
+        path: ~/.config/yambar/scripts/disk_perc.sh
+        content:
+          list:
+            spacing: 0
+            items:
+              - string: { text: "      ", font: *awesome, foreground: *overlay, deco: { background: { color: *iris } } }
+              - string: { text: " {perc}% ", deco: { background: { color: *overlay }} }
+
+  center:
+    - clock:
+        time-format: "%H:%M"
+        date-format: "%a %d %b"
+        content:
+          - string: { text: "{date} at {time}" }
+
+  right:
+    - backlight:
+        name: intel_backlight
+        content:
+          list:
+            spacing: 0
+            items:
+              - string: { text: "      ", font: *awesome, foreground: *overlay, deco: { background: { color: *gold } } }
+              - string: { text: " {percent}% ", deco: { background: { color: *overlay  } } }
+
+    - script:
+        path: ~/.config/yambar/scripts/com_bat.sh
+        anchors:
+          - str_perc: &str_perc
+              string: { text: " {perc}% ", deco: { background: { color: *overlay } } }
+          
+          - ramp: &ramp
+              map:
+                conditions:
+                  perc > 90: { string: { text: "    ", font: *awesome, foreground: *overlay, deco: { background: { color: *foam } } } }
+                  perc > 55: { string: { text: "    ", font: *awesome, foreground: *overlay, deco: { background: { color: *foam } } } }
+                  perc > 25: { string: { text: "    ", font: *awesome, foreground: *overlay, deco: { background: { color: *foam } } } }
+                  perc > 10: { string: { text: "    ", font: *awesome, foreground: *overlay, deco: { background: { color: *foam } } } }
+                  perc > 1:  { string: { text: "    ", font: *awesome, foreground: *overlay, deco: { background: { color: *love } } } }
+
+        content:
+          map: 
+            conditions: 
+              charging: 
+                list:
+                  spacing: 0
+                  items:
+                    - string: { text: " ", font: *awesome, foreground: *overlay, deco: { background: { color: *foam } } }
+                    - <<: *ramp
+                    - <<: *str_perc
+              ~charging:
+                list:
+                  spacing: 0
+                  items:
+                    - <<: *ramp 
+                    - <<: *str_perc
+
+    - network:
+        name: wlp3s0
+        content: 
+          map: 
+            default:
+              list: 
+                spacing: 0
+                items:
+                  - string: {text: "    ", font: *awesome, foreground: *overlay, deco: { background: { color: *rose } } } 
+                  - string: {text: " {ssid} ", deco: { background: { color: *overlay } } }
+            conditions:
+              state == down: 
+                list:
+                  spacing: 0
+                  items: 
+                    - string: { text: "    ", font: *awesome, foreground: *overlay, deco: { background: { color: *muted } } }
+                    - string: { text: " No Connection ", foreground: *muted, deco: { background: { color: *overlay } } }
+
+    - alsa:
+        card: hw:PCH
+        mixer: Master
+        content: 
+          map: 
+            on-click: sh -c "amixer -q sset Master toggle"
+            default:
+              list:
+                spacing: 0
+                items: 
+                  - string: { text: "    ", font: *awesome, foreground: *overlay, deco: { background: { color: *love } } }
+                  - string: { text: " {percent}% ", deco: { background: { color: *overlay } } }
+            conditions:
+              muted: 
+                list:
+                  spacing: 0
+                  items:
+                    - string: { text: "    ", font: *awesome, foreground: *overlay, deco: { background: { color: *muted } } }
+                    - string: { text: " ---% ", foreground: *muted, deco: { background: { color: *overlay } } } 

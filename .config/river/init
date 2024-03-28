@@ -1,0 +1,61 @@
+#!/bin/sh
+
+# :== Autostart ==: 
+swaybg -i ~/.config/river/wallpaper/cherry.jpg -m fill -o "*" & 
+mako &
+yambar &
+
+# :== General Settings ==:
+riverctl default-layout rivertile
+rivertile -view-padding 2 -outer-padding 4 -main-ratio 0.5 &
+riverctl hide-cursor when-typing enable
+riverctl set-repeat 50 300
+riverctl focus-follows-cursor normal
+
+# :== Keybinding ==:
+# Window Manager
+riverctl map normal Super+Shift Q exit
+riverctl map normal Super Q close
+
+# Application
+riverctl map normal Super Return spawn foot
+riverctl map normal Super R spawn      "rofi -show drun"
+riverctl map normal Super P spawn      nemo
+riverctl map normal Super B spawn      firefox
+
+# Views 
+riverctl map normal Super+Shift Return zoom
+riverctl map normal Super Space toggle-float
+riverctl map normal Super+Alt space toggle-fullscreen
+
+riverctl map normal Super J focus-view next
+riverctl map normal Super K focus-view previous
+
+riverctl map normal Super H send-layout-cmd rivertile "main-ratio -0.05"
+riverctl map normal Super L send-layout-cmd rivertile "main-ratio +0.05"
+
+riverctl map-pointer normal Super BTN_LEFT move-view
+riverctl map-pointer normal Super BTN_RIGHT resize-view
+
+# Tags
+for i in $(seq 1 5); do
+    tags=$((1 << ($i - 1)))
+    riverctl map normal Super $i set-focused-tags $tags
+    riverctl map normal Super+Shift $i set-view-tags $tags
+done
+riverctl map normal Super Tab focus-previous-tags
+
+# Media
+riverctl map normal None XF86AudioRaiseVolume spawn "amixer sset Master 5%+"
+riverctl map normal None XF86AudioLowerVolume spawn "amixer sset Master 5%-"
+riverctl map normal None XF86AudioMute        spawn "amixer sset Master toggle"
+riverctl map normal None XF86AudioMicMute     spawn "amixer sset Capture toggle"
+
+riverctl map normal None XF86MonBrightnessUp spawn "brightnessctl set 5%+"
+riverctl map normal None XF86MonBrightnessDown spawn "brightnessctl set 5%-"
+
+# :== Border ==:
+riverctl border-width 3
+riverctl background-color 0x191724
+riverctl border-color-focused 0x403d52
+riverctl border-color-unfocused 0x1f1d2e

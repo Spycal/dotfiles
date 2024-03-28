@@ -1,0 +1,22 @@
+
+[global]
+width = 300
+height = 300
+notification_limit = 6
+padding = 16
+horizontal_padding = 12
+frame_width = 2
+frame_color = "#403D52"
+font = Iosevka Mayukai Serif 12
+format = "<b><i>%s</i></b>\n%b"
+browser = /usr/bin/firefox
+background = "#191724"
+foreground = "#E0DEF4"
+timeout = 10
+corner_radius = 10
+
+[urgency_critical]
+frame_color = "#EB6F92"
+timeout = 0
+
+# vim:ft=cfg
