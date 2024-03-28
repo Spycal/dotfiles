@@ -1,2 +1,2 @@
-# dotfiles
-A typical linux dotfiles 
+# Dotfiles ✨
+
